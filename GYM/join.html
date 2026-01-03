@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="assets/download.jpg" type="image/x-icon">
+  <title>Contact Our Gym</title>
+  <style>
+
+    * 
+    {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .header {
+      width: 100%;
+      background-color: #fec300;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .contact-section {
+      max-width: 700px;
+      width: 90%;
+      background-color: #fff;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .contact-section p {
+      color: #333;
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+
+    .contact-section hr {
+      width: 60px;
+      border: 3px solid #fec300;
+      margin: 10px auto 25px;
+      border-radius: 3px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      text-align: left;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .row .form-group {
+      flex: 1;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #000;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 3px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #fec300;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #050505;
+      transform: scale(1.02);
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Contact Our Gym</h1>
+  </div>
+
+  <div class="contact-section">
+    <h2>Get in touch with us!</h2>
+    <p>Use the form below to send us a message! We typically respond within one business day.</p>
+    <hr />
+
+    <form id="contactForm">
+      <div class="row">
+        <div class="form-group">
+          <label for="fname">First Name:</label>
+          <input type="text" id="fname" placeholder="Enter first name" />
+          <div class="error" id="fnameError"></div>
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name:</label>
+          <input type="text" id="lname" placeholder="Enter last name" />
+          <div class="error" id="lnameError"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="Enter email" />
+          <div class="error" id="emailError"></div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input type="text" id="phone" placeholder="Enter phone number" />
+          <div class="error" id="phoneError"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fee">Fee Selection:</label>
+        <select id="fee">
+          <option value="">Select Fee</option>
+          <option value="750">750</option>
+          <option value="1000">1000</option>
+          <option value="3500">3500</option>
+        </select>
+        <div class="error" id="feeError"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" placeholder="Write your message"></textarea>
+        <div class="error" id="messageError"></div>
+      </div>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("contactForm");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+      const fname = document.getElementById("fname").value.trim();
+      const lname = document.getElementById("lname").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const fee = document.getElementById("fee").value;
+      const message = document.getElementById("message").value.trim();
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      const phonePattern = /^[0-9]{10}$/;
+
+      if (fname === "") {
+        document.getElementById("fnameError").textContent = "First name required";
+        valid = false;
+      }
+      if (lname === "") {
+        document.getElementById("lnameError").textContent = "Last name required";
+        valid = false;
+      }
+      if (email === "") {
+        document.getElementById("emailError").textContent = "Email required";
+        valid = false;
+      } else if (!emailPattern.test(email)) {
+        document.getElementById("emailError").textContent = "Invalid email format";
+        valid = false;
+      }
+      if (phone === "") {
+        document.getElementById("phoneError").textContent = "Phone required";
+        valid = false;
+      } else if (!phonePattern.test(phone)) {
+        document.getElementById("phoneError").textContent = "Enter valid 10-digit number";
+        valid = false;
+      }
+      if (fee === "") {
+        document.getElementById("feeError").textContent = "Select a fee option";
+        valid = false;
+      }
+      if (message === "") {
+        document.getElementById("messageError").textContent = "Message cannot be empty";
+        valid = false;
+      }
+
+      if (valid) {
+        alert("Form submitted successfully! Our Team will Contact ");
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
+</html>
